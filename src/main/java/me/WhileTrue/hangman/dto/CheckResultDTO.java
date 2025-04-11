@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ResponseDTO {
+public class CheckResultDTO {
     private boolean gameOver;
     private boolean isCorrect;
 }

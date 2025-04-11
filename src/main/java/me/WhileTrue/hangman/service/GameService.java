@@ -3,6 +3,8 @@ package me.WhileTrue.hangman.service;
 import lombok.Getter;
 import lombok.Setter;
 import me.WhileTrue.hangman.domain.Game;
+import me.WhileTrue.hangman.dto.AnswerDTO;
+import me.WhileTrue.hangman.dto.CheckResultDTO;
 import me.WhileTrue.hangman.repository.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,22 +18,20 @@ import java.util.List;
 @Service
 public class GameService {
 
-    private Game game;
+    private Game game;//그 game을 저장할 장소
 
     public void setGame(Game game){
         this.game = game;
+    }//hangcontroller에서 넘겨준 game을 받기 위함
+    public AnswerDTO startGame(String topic, String answer) {
+        game.setAnswer(topic, answer); //게임 시작과 동시에 초기화
+        return new AnswerDTO(game.getTopic(), game.getAnswer());
     }
-    public void startGame(String answer) {
-        if(game.getLife() == 0){
-            game.setGameOver(true);
-        }
-    }
-    public void checkAnswer(char input){
+    public CheckResultDTO checkAnswer(char input){
         boolean isCorrect = false;
 
-        for(int i = 0; i < game.getAnswerCharArray().length; i++){
-            if(game.getAnswerCharArray()[i] == input){
-                game.getTryCharArray()[i] = input;
+        for(char c: game.getAnswerCharArray()){
+            if(c == input){
                 isCorrect = true;
             }
         }
@@ -42,6 +42,7 @@ public class GameService {
         if(game.getLife()==0){
             game.setGameOver(true);
         }
+        return new CheckResultDTO(game.isGameOver(), isCorrect);
     }
 
 }

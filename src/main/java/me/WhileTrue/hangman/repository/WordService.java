@@ -29,9 +29,19 @@ public class WordService {
 
     private List<List<List<String>>> all = List.of(easy, medium, hard);
 
+    static int randomIndex = (int)(Math.random()*10);
+    static int randomTopic = (int)(Math.random()*4);
     public String getRandomWord(int level){
-        int randomTopic = (int)(Math.random()*4);
-        int randomIndex = (int)(Math.random()*10);
-        return all.get(level).get(randomTopic).get(randomIndex);
+        String answer =  all.get(level).get(randomTopic).get(randomIndex);
+        return answer;
+    }
+    public String getRandomTopic(){
+        switch (randomTopic){
+            case 0: return "animal";
+            case 1: return "country";
+            case 2: return "food";
+            case 3: return "tech";
+            default: return "error";
+        }
     }
 }

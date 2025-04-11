@@ -14,17 +14,24 @@ public class Game {
     List<Character> rightAlphabet = new ArrayList<>();
     List<Character> wrongAlphabet = new ArrayList<>();
     String answer;
+    String topic;
     char[] answerCharArray;
-    char[] tryCharArray;
 
     boolean gameOver = false;
     int life = 5; //목숨이 몇 개였더라
 
-    public void setAnswer(String answer){
+    public void setAnswer(String topic, String answer){
+        this.topic = topic;
         this.answer = answer;
         this.answerCharArray = answer.toCharArray();
-        this.tryCharArray = new char[answerCharArray.length];
         this.life = 5;
         this.gameOver = false;
+    }
+
+    public String getAnswer(){
+        return answer;
+    }
+    public String getTopic(){
+        return topic;
     }
 }
